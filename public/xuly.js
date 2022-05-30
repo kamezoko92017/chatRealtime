@@ -29,7 +29,7 @@ socket.on("server-send-message",(data)=>{
 
 //Client lang nghe server phat emit: ai-do-dang-go-chu
 socket.on("ai-do-dang-go-chu",(data)=>{
-    $("#thongbao").html(data);
+    $("#thongbao").html("<img width='20px' src='typing-icon.png'>"+data);
 })
 
 $(document).ready(()=>{
