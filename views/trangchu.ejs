@@ -11,34 +11,26 @@
     <link rel="stylesheet" type="text/css" href="layout.css">
 </head>
 <body>
-    <div id="wrapper">
-        <div id="loginForm">
-            <h3>what's your name?</h3>
-            <input type="text" id="txtUsername" />
-            <input type="button" value="Register" id="btnRegister" />
-        </div>
-        <div id="chatForm">
-            <div id="left">
-                <div id="boxTitle">Users Online</div>
-                <div id="boxContent"></div>
-            </div>
-            <div id="right">
-                <div id="sayHi">
-                    Hello <span id="currentUser">Teo</span>
-                    <input type="button" id="btnLogout" value="Logout">
-                </div>
+    <input type="text" id="txtRoom"/>
+    <input type="button" id="btnTaoRoom" value="Tạo room"/>
 
-                <div id="listMessages">
+    <div id="left">
+        <h3>DANH SÁCH CÁC ROOM</h3>
+        <div id="dsRoom">
 
-                </div>
-
-                <div id="thongbao"></div>
-
-                <input type="tex" id="txtMessage">
-                <input type="button" id="btnSendMessage" value="Send">
-            </div>
         </div>
     </div>
     
+    <div id="right">
+        <div id="roomHienTai">
+            <h4>ROOM HIỆN TẠI</h4>
+            <div id="tenRoom"></div>
+        </div>
+        <div id="txtContentChat">
+            <h4>NỘI DUNG CHAT</h4>
+        </div>
+    </div>
+    <input type="text" id="txtMessage" />
+    <input type="button" id="btnChat" value="Chat" />
 </body>
 </html>

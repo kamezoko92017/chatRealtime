@@ -1,3 +1,4 @@
+I. TẠO CHAT ĐƠN GIẢN (KHÔNG CÓ ROOM)
 Bài toán: tạo ra hệ thống chat realtime gồm nhiều người. Tại màn hình của mỗi user có 2 phần login form và chat form. 
 1. user chưa có tài khoản có thể tạo tài khoản. Khi tạo, server kiểm tra acc đã có thông tin trên hệ thống chưa (lưu vào mảng)
 1.1. Nếu đã có người khác đăng ký rồi thì việc đăng ký thất bại. server gửi thông báo đky thất bại đến user
@@ -22,3 +23,12 @@ vừa mới yêu cầu đăng ký.
 2.6. co-nguoi-logout
 2.7. user-send-message
 2.8. server-send-message
+
+II. TẠO CHAT VỚI ROOM
+- Mỗi khi có 1 kết nối đến server, server sẽ tạo ra 1 socket, trong socket này có các trường id, room...
+Trong đó room có tên giống với id, mỗi kết nối đều có 1 room.
+- Dùng hàm: socket.adapter.rooms() để show ra các room có trên server
+- Dùng hàm: socket.join('ten-room') để join vào room có tên 'ten-room'. Nếu room này chưa có thì server
+sẽ tự tạo.
+- Không thể xóa room, khi socket cuối cùng thoát ra khỏi room thì room được tự động xóa
+- Dùng hàm socket.leave() để đưa socket rời khỏi room

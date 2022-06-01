@@ -1,27 +1,11 @@
 body {
-    background-color: rgb(223, 233, 233);
+    background-color: yellow;
 }
 
-#wrapper {
-    width: 600px;
-    margin:auto;
-}
-
-#txtUsername {
-    background-color: transparent; border: solid 1px black;
-}
-
-#left,#right { min-height: 300px;}
-
-#left {
-    width: 30%; float: left; background-color: rgb(228, 235, 140);
-}
-
-#right {
-    width: 70%; float: right; background-color: rgb(104, 104, 223);
-}
-#boxTitle{border: solid 1px black; padding: 5px; text-align: center;font-weight: bold;}
-#boxContent{border: solid 1px black; border-top: none; padding: 5px;}
-#sayHi{text-align: right;}
-#listMessages{height: 200px; background-color: aquamarine; margin-bottom: 15px;}
-#textMessage{background-color: transparent; border: solid 1px black;}
+#left{width: 30%; float: left; border: solid 1px pink}
+#left h3 {color:blue;}
+#right {width: 68%; float: right;border: solid 1px green;}
+/* #dsRoom {width: 100px; height: 100px; border: solid 1px blue;} */
+#roomHienTai {width: 30%; border: solid 1px green; float:right;}
+#roomHienTai h4 {color: blue;}
+#txtContentChat h4 {color:blue;}

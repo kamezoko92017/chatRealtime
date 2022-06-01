@@ -32,34 +32,37 @@ socket.on("ai-do-dang-go-chu",(data)=>{
     $("#thongbao").html("<img width='20px' src='typing-icon.png'>"+data);
 })
 
+//Client lắng nghe khi server phát emit: server-send-rooms
+socket.on("server-send-rooms",(data)=>{
+    $("#dsRoom").html("");
+    
+    data.map((r)=>{
+        $("#dsRoom").append("<h4 class='room' >"+r+"</h4>");
+    });
+    
+})
+
+//Client lắng nghe khi server phát emit: server-send-room-socket
+socket.on("server-send-room-socket",(data)=>{
+    $("#tenRoom").html(data);
+    
+})
+
+//Client lắng nghe khi server phát emit: server-chat
+socket.on("server-chat",(data)=>{
+    $("#txtContentChat").append("<div class='ms'>"+data.un+": "+data.nd+"</div>");
+    
+})
+
 $(document).ready(()=>{
-    $("#loginForm").show();
-    $("#chatForm").hide();
 
-    //Khách hàng nhấn nút đăng ký
-    $("#btnRegister").click(()=>{
-        socket.emit("client-send-username",$("#txtUsername").val())
+    //Tạo chat room
+    $("#btnTaoRoom").click(()=>{
+        socket.emit("tao-room",$("#txtRoom").val());
     });
 
-    //Khách hàng nhấn nút logout
-    $("#btnLogout").click(()=>{
-        socket.emit("logout");
-        $("#chatForm").hide(2);
-        $("#loginForm").show(1);
-    });
-
-    //Khách hàng nhấn nút Send Message
-    $("#btnSendMessage").click(()=>{
-        socket.emit("user-send-message",$("#txtMessage").val());
-    });
-
-    //Khách hàng đang nhập vào ô chat
-    $("#txtMessage").focusin(()=>{
-        socket.emit("toi-dang-go-chu");
-    });
-
-    //Khách hàng STOP nhập vào ô chat
-    $("#txtMessage").focusout(()=>{
-        socket.emit("toi-stop-go-chu");
+    //User chat
+    $("#btnChat").click(()=>{
+        socket.emit("user-chat",$("#txtMessage").val());
     });
 });

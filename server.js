@@ -16,45 +16,38 @@ var mangUsers=['aaa'];
 io.on("connection",(socket)=>{
     console.log("Co nguoi ket noi "+socket.id);
 
-    //Lang nghe su kien nguoi dung nhan dang ky
-    socket.on("client-send-username",(data)=>{
-        if(mangUsers.indexOf(data)>=0){
-            //dang ky that bai
-            socket.emit("server-send-dangky-thatbai")
-        }else{
-            //dang ky thanh cong
-            mangUsers.push(data);
+    //Show ra cac room đang có trên server
+    // console.log (socket.adapter.rooms);
 
-            //Tao them thuoc tinh Username cho moi socket
-            socket.Username=data;
+    //server lắng nghe sự kiện khi user phát ra emit: tao-room
+    socket.on("tao-room",(data)=>{
+        //Tạo ra room mới có tên là data và cho socket join vào room mới này
+        socket.join(data);
+        //Tạo thêm thuộc tính Phong cho socket (để sau này biết user đang thuộc room nào)
+        socket.Phong=data;
+        console.log('danh sach cac room:');
+        // console.log(socket.adapter.rooms);
 
-            socket.emit("server-send-dangky-thanhcong",data);
+        // //Tạo mảng danh sách các room đang có trên server
+        var mang=[];
+        // console.log(typeof(socket.adapter.rooms));
+        console.log(typeof(mang));
+        socket.adapter.rooms.forEach((value,key,map)=>{
+            mang.push(key);
+        }); 
+        
+        //server phát emit gửi danh sách các room đang có trên server
+        io.sockets.emit("server-send-rooms",mang);
 
-            //Server phat emit cho tat ca cac client cap nhat lai danh sach user dang online
-            io.sockets.emit("server-send-danhsach-user",mangUsers);
-        }
-    })
+        //server phát emit gửi room hiện có cho socket (user)
+        socket.emit("server-send-room-socket",data);
+    });
 
-    //Lang nghe su kien có client logout
-    socket.on("logout",()=>{
-        mangUsers.splice(
-            mangUsers.indexOf(socket.Username),1
-        );
-
-        socket.broadcast.emit("server-send-danhsach-user",mangUsers);
-    })
-
-    //Lang nghe su kien có client send message
-    socket.on("user-send-message",(data)=>{
-        io.sockets.emit("server-send-message",{un:socket.Username, nd:data});
-    })
-
-    //Lang nghe su kien có client đang gõ chữ
-    socket.on("toi-dang-go-chu",()=>{
-        var s=socket.Username+ " dang go chu";
-        io.sockets.emit("ai-do-dang-go-chu",s);
-    })
-})
+    //server lắng nghe khi user phát ra emit: user-chat
+    socket.on("user-chat",data=>{
+        io.sockets.in(socket.Phong).emit("server-chat",{un:socket.id, nd:data});
+    });
+});
 
 app.get("/",(req,res)=>{
     res.render("trangchu");
